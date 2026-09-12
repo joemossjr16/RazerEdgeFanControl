@@ -1,0 +1,70 @@
+# File empty by default.
+# Replace contents of this file with custom configuration.
+
+[VIRTUAL-CPU-NSP]
+#algo_type virtual
+sensors cpuss-0-usr cpuss-1-usr
+weights
+trip_sensors nspss-0-usr nspss-1-usr nspss-2-usr
+trip_sensors_logic
+thresholds 94000 94000 94000
+thresholds_clr 90000 90000 90000
+sampling 1000
+math 2
+
+[SS-SILVER]
+#algo_type ss
+sampling 1000
+sensor VIRTUAL-CPU-NSP
+device cpu0
+set_point 75000
+set_point_clr 70000
+time_constant 0
+device_max_limit 806400
+
+[SS-APC1]
+#algo_type ss
+sampling 1000
+sensor VIRTUAL-CPU-NSP
+device thermal-cluster-7-4
+set_point 75000
+set_point_clr 70000
+time_constant 0
+
+[CHARGE-MITIGATION]
+algo_type monitor
+sampling 1000
+sensor quiet-therm-usr
+thresholds 38000 40000 42000 44000 46000
+thresholds_clr 36000 38000 40000 42000 44000
+actions battery battery battery battery battery
+action_info 1 2 3 4 5
+
+[FAN-MITIGATION]
+#algo_type monitor
+sampling 1000
+sensor quiet-therm-usr
+thresholds 32000 34000 36000 38000 40000 42000
+thresholds_clr 30000 32000 34000 36000 38000 40000
+actions fan-max31760 fan-max31760 fan-max31760 fan-max31760 fan-max31760 fan-max31760
+action_info 2 3 4 5 6 7
+
+[QUIET_THERM_MITIGATION]
+#algo_type monitor
+sampling 1000
+sensor quiet-therm-usr
+thresholds 40000 42000 44000 46000 51000
+thresholds_clr 38000 40000 42000 44000 48000
+actions cpu0+cpu4+cpu7 cpu0+cpu4+cpu7 cpu0+cpu4+cpu7 cpu0+cpu4+cpu7+gpu  cpu0+cpu4+gpu
+action_info 1804800+2419200+2688000  1804800+2112000+2265600 1612800+1881600+2035200 1612800+1881600+2035200+778000000 1612800+1766400+608000000
+
+
+
+[CPUSS-NSP-MONITOR]
+#algo_type monitor
+sampling 1000
+sensor VIRTUAL-CPU-NSP
+thresholds 77000 79000
+thresholds_clr 72000 74000
+actions hotplug_7 hotplug_4+hotplug_5+hotplug_6
+action_info 1 1+1+1

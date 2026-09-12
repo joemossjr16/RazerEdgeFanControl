@@ -17,7 +17,9 @@ public class MainActivity extends Activity {
     private TextView logView;
     private SeekBar percentSeekBar;
     private Button grantShizukuButton;
+    private TextView thermalProfileStatus;
     private FanController fanController;
+    private ThermalProfileController thermalProfileController;
 
     private final Shizuku.OnRequestPermissionResultListener permissionListener =
             (requestCode, grantResult) -> runOnUiThread(this::checkRoot);
@@ -28,6 +30,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         fanController = new FanController(this);
+        thermalProfileController = new ThermalProfileController(this);
 
         rootStatus = findViewById(R.id.root_status);
         pathStatus = findViewById(R.id.path_status);
@@ -35,6 +38,7 @@ public class MainActivity extends Activity {
         logView = findViewById(R.id.log_view);
         percentSeekBar = findViewById(R.id.percent_seekbar);
         grantShizukuButton = findViewById(R.id.grant_shizuku_button);
+        thermalProfileStatus = findViewById(R.id.thermal_profile_status);
 
         pathStatus.setText("Target: " + fanController);
 
@@ -69,10 +73,16 @@ public class MainActivity extends Activity {
 
         findViewById(R.id.reset_auto_button).setOnClickListener(v -> resetToAuto());
 
+        findViewById(R.id.thermal_stock_button).setOnClickListener(v ->
+                applyThermalProfile(ThermalProfileController.Profile.STOCK));
+        findViewById(R.id.thermal_performance_button).setOnClickListener(v ->
+                applyThermalProfile(ThermalProfileController.Profile.PERFORMANCE));
+
         grantShizukuButton.setOnClickListener(v -> ShizukuBackend.requestPermission());
 
         Shizuku.addRequestPermissionResultListener(permissionListener);
         checkRoot();
+        checkThermalProfile();
     }
 
     @Override
@@ -131,6 +141,38 @@ public class MainActivity extends Activity {
                     ? "Reset -> restarted " + fanController.getThermalService() + " + fixed safe duty"
                     : "Reset -> failed: " + result.output));
         }).start();
+    }
+
+    private void checkThermalProfile() {
+        thermalProfileStatus.setText("Thermal profile: checking...");
+        new Thread(() -> {
+            final ThermalProfileController.Profile profile = thermalProfileController.readCurrent();
+            runOnUiThread(() -> thermalProfileStatus.setText("Thermal profile: " + describeProfile(profile)));
+        }).start();
+    }
+
+    private void applyThermalProfile(ThermalProfileController.Profile profile) {
+        thermalProfileStatus.setText("Thermal profile: applying " + describeProfile(profile) + "...");
+        new Thread(() -> {
+            final RootShell.Result result = thermalProfileController.apply(profile);
+            runOnUiThread(() -> {
+                appendLog(result.success
+                        ? "Thermal profile -> " + describeProfile(profile) + " (thermal-engine restarted)"
+                        : "Thermal profile -> failed: " + result.output);
+                checkThermalProfile();
+            });
+        }).start();
+    }
+
+    private static String describeProfile(ThermalProfileController.Profile profile) {
+        switch (profile) {
+            case STOCK:
+                return "Stock";
+            case PERFORMANCE:
+                return "Performance";
+            default:
+                return "Unknown / custom";
+        }
     }
 
     private void appendLog(String line) {
