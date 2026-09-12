@@ -17,6 +17,7 @@ public class MainActivity extends Activity {
     private TextView logView;
     private SeekBar percentSeekBar;
     private Button grantShizukuButton;
+    private Button rebootButton;
     private TextView thermalProfileStatus;
     private FanController fanController;
     private ThermalProfileController thermalProfileController;
@@ -39,6 +40,7 @@ public class MainActivity extends Activity {
         percentSeekBar = findViewById(R.id.percent_seekbar);
         grantShizukuButton = findViewById(R.id.grant_shizuku_button);
         thermalProfileStatus = findViewById(R.id.thermal_profile_status);
+        rebootButton = findViewById(R.id.reboot_button);
 
         pathStatus.setText("Target: " + fanController);
 
@@ -77,6 +79,7 @@ public class MainActivity extends Activity {
                 applyThermalProfile(ThermalProfileController.Profile.STOCK));
         findViewById(R.id.thermal_performance_button).setOnClickListener(v ->
                 applyThermalProfile(ThermalProfileController.Profile.PERFORMANCE));
+        rebootButton.setOnClickListener(v -> new Thread(() -> PrivilegedShell.run("reboot")).start());
 
         grantShizukuButton.setOnClickListener(v -> ShizukuBackend.requestPermission());
 
@@ -152,13 +155,16 @@ public class MainActivity extends Activity {
     }
 
     private void applyThermalProfile(ThermalProfileController.Profile profile) {
-        thermalProfileStatus.setText("Thermal profile: applying " + describeProfile(profile) + "...");
+        thermalProfileStatus.setText("Thermal profile: configuring " + describeProfile(profile) + "...");
         new Thread(() -> {
             final RootShell.Result result = thermalProfileController.apply(profile);
             runOnUiThread(() -> {
-                appendLog(result.success
-                        ? "Thermal profile -> " + describeProfile(profile) + " (thermal-engine restarted)"
-                        : "Thermal profile -> failed: " + result.output);
+                if (result.success) {
+                    appendLog("Thermal profile -> " + describeProfile(profile) + " set for next boot");
+                    rebootButton.setVisibility(android.view.View.VISIBLE);
+                } else {
+                    appendLog("Thermal profile -> failed: " + result.output);
+                }
                 checkThermalProfile();
             });
         }).start();

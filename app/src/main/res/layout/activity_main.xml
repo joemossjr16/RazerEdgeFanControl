@@ -136,7 +136,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:textSize="12sp"
-            android:text="Performance loosens the skin-temp throttle curve (kicks in ~15C later). Real hardware protection is unchanged either way." />
+            android:text="Performance loosens the skin-temp throttle curve (kicks in ~15C later) via a proper module overlay - never writes /vendor live. Requires a reboot to take effect. Real hardware protection is unchanged either way." />
 
         <TextView
             android:id="@+id/thermal_profile_status"
@@ -167,6 +167,14 @@
                 android:text="Performance" />
 
         </LinearLayout>
+
+        <Button
+            android:id="@+id/reboot_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Reboot Now to Apply"
+            android:visibility="gone" />
 
         <View
             android:layout_width="match_parent"
