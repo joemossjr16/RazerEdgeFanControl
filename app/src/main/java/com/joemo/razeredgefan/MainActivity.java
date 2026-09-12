@@ -3,10 +3,11 @@ package com.joemo.razeredgefan;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
+import rikka.shizuku.Shizuku;
 
 public class MainActivity extends Activity {
 
@@ -15,7 +16,11 @@ public class MainActivity extends Activity {
     private TextView percentLabel;
     private TextView logView;
     private SeekBar percentSeekBar;
+    private Button grantShizukuButton;
     private FanController fanController;
+
+    private final Shizuku.OnRequestPermissionResultListener permissionListener =
+            (requestCode, grantResult) -> runOnUiThread(this::checkRoot);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +34,9 @@ public class MainActivity extends Activity {
         percentLabel = findViewById(R.id.percent_label);
         logView = findViewById(R.id.log_view);
         percentSeekBar = findViewById(R.id.percent_seekbar);
+        grantShizukuButton = findViewById(R.id.grant_shizuku_button);
+
+        pathStatus.setText("Target: " + fanController);
 
         percentSeekBar.setProgress(fanController.getLastPercent());
         percentLabel.setText(fanController.getLastPercent() + "%");
@@ -61,30 +69,47 @@ public class MainActivity extends Activity {
 
         findViewById(R.id.reset_auto_button).setOnClickListener(v -> resetToAuto());
 
+        grantShizukuButton.setOnClickListener(v -> ShizukuBackend.requestPermission());
+
+        Shizuku.addRequestPermissionResultListener(permissionListener);
         checkRoot();
+    }
+
+    @Override
+    protected void onDestroy() {
+        Shizuku.removeRequestPermissionResultListener(permissionListener);
+        super.onDestroy();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        refreshPathStatus();
-    }
-
-    private void refreshPathStatus() {
-        if (fanController.isConfigured()) {
-            pathStatus.setText("Node: " + fanController.getPath()
-                    + "  (0-" + fanController.getMaxState() + ")");
-        } else {
-            pathStatus.setText("No fan node configured yet - tap Discover Fan Nodes.");
-        }
+        pathStatus.setText("Target: " + fanController);
     }
 
     private void checkRoot() {
+        rootStatus.setText("Checking privileged access...");
         new Thread(() -> {
-            final boolean hasRoot = RootShell.isRootAvailable();
-            runOnUiThread(() -> rootStatus.setText(hasRoot
-                    ? "Root access: granted"
-                    : "Root access: NOT granted - grant su to this app first."));
+            final PrivilegedShell.Backend backend = PrivilegedShell.detect();
+            runOnUiThread(() -> {
+                switch (backend) {
+                    case SHIZUKU:
+                        rootStatus.setText("Privileged access: Shizuku (granted)");
+                        grantShizukuButton.setVisibility(android.view.View.GONE);
+                        break;
+                    case SHIZUKU_NEEDS_PERMISSION:
+                        rootStatus.setText("Shizuku is running but needs permission");
+                        grantShizukuButton.setVisibility(android.view.View.VISIBLE);
+                        break;
+                    case SU:
+                        rootStatus.setText("Privileged access: su (granted)");
+                        grantShizukuButton.setVisibility(android.view.View.GONE);
+                        break;
+                    default:
+                        rootStatus.setText("No privileged access - start Shizuku or grant su.");
+                        grantShizukuButton.setVisibility(android.view.View.GONE);
+                }
+            });
         }).start();
     }
 
@@ -103,8 +128,8 @@ public class MainActivity extends Activity {
         new Thread(() -> {
             final RootShell.Result result = fanController.resetToAuto();
             runOnUiThread(() -> appendLog(result.success
-                    ? "Reset to auto -> ok (" + fanController.getThermalService() + " restarted)"
-                    : "Reset to auto -> failed: " + result.output));
+                    ? "Reset -> restarted " + fanController.getThermalService() + " + fixed safe duty"
+                    : "Reset -> failed: " + result.output));
         }).start();
     }
 

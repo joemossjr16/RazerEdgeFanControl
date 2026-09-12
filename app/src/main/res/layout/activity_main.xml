@@ -22,14 +22,22 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:textSize="14sp"
-            android:text="No fan node configured yet." />
+            android:text="" />
+
+        <Button
+            android:id="@+id/grant_shizuku_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Grant Shizuku Permission"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/discover_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Discover Fan Nodes" />
+            android:text="I2C Target / Diagnostics" />
 
         <View
             android:layout_width="match_parent"
