@@ -16,7 +16,10 @@ final class FanController {
     private static final String KEY_THERMAL_SERVICE = "thermal_service";
     private static final String KEY_LAST_PERCENT = "last_percent";
 
-    private static final String DEFAULT_THERMAL_SERVICE = "vendor.thermal-engine";
+    // Confirmed via `getprop init.svc.thermal-engine` / `ps -A` on-device (Razer Edge 5G,
+    // Android 16 build BP4A.251205.006) - the running init service is "thermal-engine",
+    // not "vendor.thermal-engine".
+    private static final String DEFAULT_THERMAL_SERVICE = "thermal-engine";
 
     private final SharedPreferences prefs;
 
