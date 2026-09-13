@@ -62,6 +62,9 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        UiAnim.enter(findViewById(R.id.main_root));
+        UiAnim.breathe(findViewById(R.id.title_text));
+
         fanController = new FanController(this);
         thermalProfileController = new ThermalProfileController(this);
 
@@ -72,6 +75,8 @@ public class MainActivity extends Activity {
         percentSeekBar = findViewById(R.id.percent_seekbar);
         grantRootButton = findViewById(R.id.grant_root_button);
         grantShizukuButton = findViewById(R.id.grant_shizuku_button);
+        UiAnim.punch(grantRootButton);
+        UiAnim.punch(grantShizukuButton);
 
         if (!BuildConfig.SUPPORTS_THERMAL_MODULE) {
             findViewById(R.id.thermal_profile_section).setVisibility(android.view.View.GONE);
@@ -82,6 +87,9 @@ public class MainActivity extends Activity {
         updateStatus = findViewById(R.id.update_status);
         checkUpdateButton = findViewById(R.id.check_update_button);
         downloadUpdateButton = findViewById(R.id.download_update_button);
+        UiAnim.punch(checkUpdateButton);
+        UiAnim.punch(downloadUpdateButton);
+        UiAnim.punch(rebootButton);
 
         pathStatus.setText("Target: " + fanController);
 
@@ -102,6 +110,13 @@ public class MainActivity extends Activity {
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
+
+        for (int id : new int[] {R.id.discover_button, R.id.apply_button, R.id.preset_quiet,
+                R.id.preset_balanced, R.id.preset_performance, R.id.preset_max, R.id.reset_auto_button,
+                R.id.thermal_stock_button, R.id.thermal_performance_button, R.id.source_link,
+                R.id.changelog_link}) {
+            UiAnim.punch(findViewById(id));
+        }
 
         findViewById(R.id.discover_button).setOnClickListener(v ->
                 startActivity(new Intent(MainActivity.this, DiscoveryActivity.class)));

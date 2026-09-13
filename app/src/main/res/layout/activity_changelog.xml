@@ -4,12 +4,15 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/changelog_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:gravity="center_horizontal"
         android:padding="24dp">
 
         <TextView
+            android:id="@+id/changelog_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
@@ -24,6 +27,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="monospace"
             android:textSize="13sp"
+            android:gravity="center"
             android:text="Loading..." />
 
     </LinearLayout>

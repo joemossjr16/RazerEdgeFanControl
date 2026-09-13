@@ -4,12 +4,15 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/discovery_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:gravity="center_horizontal"
         android:padding="16dp">
 
         <TextView
+            android:id="@+id/discovery_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
@@ -23,6 +26,7 @@
             android:layout_height="wrap_content"
             android:text="Confirmed on-device: the fan is a MAX31760 at i2c bus 0, addr 0x50, register 0x50 (PWMR), already in direct-control mode. Only change this if a different unit reports differently."
             android:textSize="13sp"
+            android:gravity="center"
             android:layout_marginBottom="16dp" />
 
         <TextView
@@ -33,6 +37,7 @@
             android:id="@+id/bus_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:inputType="number" />
 
         <TextView
@@ -43,6 +48,7 @@
             android:id="@+id/addr_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:inputType="text" />
 
         <TextView
@@ -53,6 +59,7 @@
             android:id="@+id/reg_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:inputType="text" />
 
         <Button
@@ -81,6 +88,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="monospace"
+            android:gravity="center"
             android:text="" />
 
     </LinearLayout>

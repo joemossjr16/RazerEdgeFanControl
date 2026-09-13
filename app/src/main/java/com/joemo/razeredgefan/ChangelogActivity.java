@@ -15,6 +15,9 @@ public class ChangelogActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_changelog);
 
+        UiAnim.enter(findViewById(R.id.changelog_root));
+        UiAnim.breathe(findViewById(R.id.changelog_title));
+
         TextView body = findViewById(R.id.changelog_body);
         new Thread(() -> {
             String changelog = UpdateChecker.fetchChangelog();

@@ -21,6 +21,9 @@ public class DiscoveryActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_discovery);
 
+        UiAnim.enter(findViewById(R.id.discovery_root));
+        UiAnim.breathe(findViewById(R.id.discovery_title));
+
         fanController = new FanController(this);
         busInput = findViewById(R.id.bus_input);
         addrInput = findViewById(R.id.addr_input);
@@ -31,6 +34,8 @@ public class DiscoveryActivity extends Activity {
         addrInput.setText(fanController.getAddr());
         regInput.setText(fanController.getReg());
 
+        UiAnim.punch(findViewById(R.id.save_button));
+        UiAnim.punch(findViewById(R.id.refresh_button));
         findViewById(R.id.save_button).setOnClickListener(v -> save());
         findViewById(R.id.refresh_button).setOnClickListener(v -> refresh());
 

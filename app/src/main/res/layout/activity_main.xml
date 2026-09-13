@@ -4,12 +4,15 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/main_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:gravity="center_horizontal"
         android:padding="24dp">
 
         <TextView
+            android:id="@+id/title_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
@@ -23,6 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
+            android:gravity="center"
             android:text="Checking root access..." />
 
         <TextView
@@ -31,6 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:textSize="14sp"
+            android:gravity="center"
             android:text="" />
 
         <Button
@@ -55,6 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:textSize="14sp"
+            android:gravity="center"
             android:text=""
             android:visibility="gone" />
 
@@ -106,6 +112,7 @@
             android:id="@+id/percent_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="50%" />
 
         <Button
@@ -178,13 +185,15 @@
             android:id="@+id/thermal_profile_section"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:textSize="12sp"
+                android:gravity="center"
                 android:text="Performance loosens the skin-temp throttle curve (kicks in ~15C later) and stops thermal-engine from overriding your manual fan speed, via a proper module overlay - never writes /vendor live. Requires a reboot to take effect. Real hardware protection is unchanged either way." />
 
             <TextView
@@ -192,6 +201,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:gravity="center"
                 android:text="Thermal profile: checking..." />
 
             <LinearLayout
@@ -229,10 +239,11 @@
 
         <TextView
             android:id="@+id/thermal_profile_unavailable"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:textSize="12sp"
+            android:gravity="center"
             android:text="Not available in this build: switching profiles installs a module, which needs a root manager (Magisk/APatch) to mount it. Install the rooted build for this feature."
             android:visibility="gone" />
 
@@ -249,13 +260,15 @@
             android:layout_height="wrap_content"
             android:fontFamily="monospace"
             android:textSize="12sp"
+            android:gravity="center"
             android:text="" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center">
 
             <TextView
                 android:id="@+id/source_link"
