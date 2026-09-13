@@ -22,6 +22,7 @@ final class UpdateChecker {
 
     private static final String REPO = "joemossjr16/RazerEdgeFanControl";
     static final String REPO_URL = "https://github.com/" + REPO;
+    static final String CHANGELOG_URL = "https://raw.githubusercontent.com/" + REPO + "/master/CHANGELOG.md";
     private static final String LATEST_RELEASE_URL =
             "https://api.github.com/repos/" + REPO + "/releases/latest";
     private static final String APK_ASSET_NAME = "EdgePerformanceControl-root.apk";
@@ -109,6 +110,30 @@ final class UpdateChecker {
             return Integer.parseInt(part.replaceAll("[^0-9]", ""));
         } catch (NumberFormatException e) {
             return 0;
+        }
+    }
+
+    /** Off the main thread only. Returns null on any failure (no network, 404, etc). */
+    static String fetchChangelog() {
+        try {
+            HttpURLConnection conn = (HttpURLConnection) new URL(CHANGELOG_URL).openConnection();
+            conn.setConnectTimeout(8000);
+            conn.setReadTimeout(8000);
+            if (conn.getResponseCode() != 200) {
+                return null;
+            }
+            StringBuilder body = new StringBuilder();
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    body.append(line).append('\n');
+                }
+            } finally {
+                conn.disconnect();
+            }
+            return body.toString().trim();
+        } catch (Exception e) {
+            return null;
         }
     }
 

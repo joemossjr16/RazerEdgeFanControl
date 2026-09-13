@@ -2,4 +2,5 @@
 <resources>
     <string name="app_name">Edge Performance Control</string>
     <string name="discover_title">Discover Fan Nodes</string>
+    <string name="changelog_title">Changelog</string>
 </resources>

@@ -32,6 +32,11 @@
             android:exported="false"
             android:label="@string/discover_title" />
 
+        <activity
+            android:name=".ChangelogActivity"
+            android:exported="false"
+            android:label="@string/changelog_title" />
+
         <provider
             android:name="rikka.shizuku.ShizukuProvider"
             android:authorities="${applicationId}.shizuku"
