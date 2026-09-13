@@ -5,6 +5,10 @@ distributed to testers and versioned below; `shizuku` is a dev-only comparison b
 
 ## [Unreleased]
 - Added a "View source on GitHub" link in the app, pointing at this repo.
+- Added an in-app Changelog screen (fetches this file live from GitHub).
+- Centered titles, status text, buttons, and paragraphs across every screen.
+- Added Razer-style motion: a breathing title pulse, a fade/slide entrance on launch, and a
+  press-feedback dim on every button and link.
 
 ## [0.1.2] - 2026-09-13
 - Added in-app update checking: an automatic silent check on launch, plus a "Check for Updates"
