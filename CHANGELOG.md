@@ -4,6 +4,8 @@ All notable changes to Edge Performance Control are documented here. Only the `r
 distributed to testers and versioned below; `shizuku` is a dev-only comparison build.
 
 ## [Unreleased]
+
+## [0.1.3] - 2026-09-13
 - Added a "View source on GitHub" link in the app, pointing at this repo.
 - Added an in-app Changelog screen (fetches this file live from GitHub).
 - Centered titles, status text, buttons, and paragraphs across every screen.
