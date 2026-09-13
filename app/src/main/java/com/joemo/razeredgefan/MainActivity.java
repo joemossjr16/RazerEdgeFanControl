@@ -126,6 +126,8 @@ public class MainActivity extends Activity {
         grantRootButton.setOnClickListener(v -> requestRoot());
         checkUpdateButton.setOnClickListener(v -> checkForUpdate(true));
         downloadUpdateButton.setOnClickListener(v -> downloadAndInstallUpdate());
+        findViewById(R.id.source_link).setOnClickListener(v ->
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(UpdateChecker.REPO_URL))));
 
         IntentFilter downloadFilter = new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {

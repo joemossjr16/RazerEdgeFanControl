@@ -251,6 +251,15 @@
             android:textSize="12sp"
             android:text="" />
 
+        <TextView
+            android:id="@+id/source_link"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:textSize="12sp"
+            android:textColor="@color/razer_green"
+            android:text="View source on GitHub" />
+
     </LinearLayout>
 
 </ScrollView>

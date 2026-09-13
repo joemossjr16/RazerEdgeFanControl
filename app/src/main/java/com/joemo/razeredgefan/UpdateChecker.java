@@ -21,6 +21,7 @@ import java.net.URL;
 final class UpdateChecker {
 
     private static final String REPO = "joemossjr16/RazerEdgeFanControl";
+    static final String REPO_URL = "https://github.com/" + REPO;
     private static final String LATEST_RELEASE_URL =
             "https://api.github.com/repos/" + REPO + "/releases/latest";
     private static final String APK_ASSET_NAME = "EdgePerformanceControl-root.apk";
