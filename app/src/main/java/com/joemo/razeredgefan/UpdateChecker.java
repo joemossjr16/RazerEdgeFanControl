@@ -17,12 +17,10 @@ import java.net.URL;
  * Checks GitHub Releases for a newer build than what's installed, and can hand a matching
  * release APK asset to the system DownloadManager + package installer. Only the `root` flavor
  * ships to testers, so this is the only build that needs to self-update.
- *
- * TODO: fill in REPO once the GitHub repo exists (owner/name, e.g. "joemoss/RazerEdgeFanControl").
  */
 final class UpdateChecker {
 
-    private static final String REPO = "OWNER/REPO";
+    private static final String REPO = "joemossjr16/RazerEdgeFanControl";
     private static final String LATEST_RELEASE_URL =
             "https://api.github.com/repos/" + REPO + "/releases/latest";
     private static final String APK_ASSET_NAME = "EdgePerformanceControl-root.apk";
