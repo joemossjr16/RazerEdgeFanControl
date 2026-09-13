@@ -90,12 +90,17 @@ final class ThermalProfileController {
                     + "actions battery battery battery battery battery\n"
                     + "action_info 1 2 3 4 5\n"
                     + "\n"
+                    // Stock has thermal-engine re-driving the fan from quiet-therm-usr every
+                    // ~1s (confirmed - it fights any manual PWMR write within a second). Pushed
+                    // out of reach here so a manual speed set from the app actually sticks; the
+                    // 94C/77-79C hardware trips above are still what actually protects the
+                    // device, this section only ever adjusted fan speed, never froze the CPU.
                     + "[FAN-MITIGATION]\n"
                     + "#algo_type monitor\n"
                     + "sampling 1000\n"
                     + "sensor quiet-therm-usr\n"
-                    + "thresholds 32000 34000 36000 38000 40000 42000\n"
-                    + "thresholds_clr 30000 32000 34000 36000 38000 40000\n"
+                    + "thresholds 150000 150000 150000 150000 150000 150000\n"
+                    + "thresholds_clr 148000 148000 148000 148000 148000 148000\n"
                     + "actions fan-max31760 fan-max31760 fan-max31760 fan-max31760 fan-max31760 fan-max31760\n"
                     + "action_info 2 3 4 5 6 7\n"
                     + "\n"

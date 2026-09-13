@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Bold performance/power bolt, kept inside the adaptive-icon safe zone (center 66dp). -->
+    <path
+        android:fillColor="#44D62C"
+        android:pathData="M40.25,26.5 V56.75 H48.5 V81.5 L67.75,48.5 H56.75 L67.75,26.5 Z" />
+</vector>

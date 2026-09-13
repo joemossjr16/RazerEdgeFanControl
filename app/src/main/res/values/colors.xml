@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="razer_green">#44D62C</color>
+    <color name="razer_green_dim">#2E9A1E</color>
+    <color name="oled_black">#000000</color>
+    <color name="oled_surface">#0D0D0D</color>
+    <color name="razer_white">#F2F2F2</color>
+    <color name="razer_gray">#8A8A8A</color>
+    <color name="light_background">#FFFFFF</color>
+    <color name="light_surface">#F2F2F2</color>
+    <color name="light_text">#111111</color>
+    <color name="divider">#22000000</color>
+</resources>

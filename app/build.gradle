@@ -10,8 +10,8 @@ android {
         applicationId 'com.joemo.razeredgefan'
         minSdk 26
         targetSdk 34
-        versionCode 1
-        versionName '0.1.0'
+        versionCode 2
+        versionName '0.1.1'
     }
 
     buildTypes {
@@ -27,6 +27,31 @@ android {
 
     buildFeatures {
         aidl true
+        buildConfig true
+    }
+
+    flavorDimensions = ['privilege']
+    productFlavors {
+        // Full-featured build: prefers a real root manager (Magisk/APatch su), and the thermal
+        // profile switch installs a proper module (needs a root manager's mount daemon - see
+        // ThermalProfileController). This is the build already installed/tested on-device.
+        root {
+            dimension 'privilege'
+            buildConfigField 'boolean', 'ALLOW_SU_FALLBACK', 'true'
+            buildConfigField 'boolean', 'SUPPORTS_THERMAL_MODULE', 'true'
+        }
+        // Non-root build: Shizuku only, never probes for `su`. Shizuku's own privilege (root or
+        // plain shell, depending on how its server was started) is whatever the command runs as
+        // - fan control works either way since it's a single i2cset call, but the thermal
+        // profile module install is skipped entirely since mounting a module needs a real root
+        // manager, which this build assumes isn't present.
+        shizuku {
+            dimension 'privilege'
+            applicationIdSuffix '.shizuku'
+            versionNameSuffix '-shizuku'
+            buildConfigField 'boolean', 'ALLOW_SU_FALLBACK', 'false'
+            buildConfigField 'boolean', 'SUPPORTS_THERMAL_MODULE', 'false'
+        }
     }
 }
 

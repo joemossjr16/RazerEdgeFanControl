@@ -7,6 +7,11 @@ import java.io.InputStreamReader;
 /**
  * Runs shell commands through {@code su}. The fan control nodes on the Edge live under
  * /sys and are only writable by root, so every read/write in this app goes through here.
+ *
+ * Invoking the su binary is itself the request - Magisk/APatch/KernelSU show their own grant
+ * prompt the first time a given app calls it and block until the user responds, which is why
+ * {@link MainActivity} exposes an explicit "Grant Root Permission" button that just calls
+ * {@link #run} again, rather than only checking passively on launch.
  */
 final class RootShell {
 

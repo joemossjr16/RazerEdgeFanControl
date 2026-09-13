@@ -20,7 +20,7 @@ final class ShizukuBackend {
     static final int PERMISSION_REQUEST_CODE = 9100;
 
     private static final Shizuku.UserServiceArgs SERVICE_ARGS =
-            new Shizuku.UserServiceArgs(new ComponentName("com.joemo.razeredgefan", FanShellService.class.getName()))
+            new Shizuku.UserServiceArgs(new ComponentName(BuildConfig.APPLICATION_ID, FanShellService.class.getName()))
                     .daemon(false)
                     .processNameSuffix("fanshell")
                     .debuggable(false)

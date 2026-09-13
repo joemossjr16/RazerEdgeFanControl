@@ -6,11 +6,17 @@
         <package android:name="moe.shizuku.privileged.api" />
     </queries>
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- Lets this app prompt to install the APK it just downloaded, without the user having to
+         separately toggle "install unknown apps" for whatever app they used to sideload us. -->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
     <application
         android:allowBackup="true"
-        android:icon="@android:drawable/sym_def_app_icon"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.DeviceDefault">
+        android:theme="@style/AppTheme">
 
         <activity
             android:name=".MainActivity"

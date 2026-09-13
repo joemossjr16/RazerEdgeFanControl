@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme" parent="android:Theme.DeviceDefault.Light.NoActionBar">
+        <item name="android:windowBackground">@color/light_background</item>
+        <item name="android:colorAccent">@color/razer_green</item>
+        <item name="android:colorButtonNormal">@color/razer_green</item>
+        <item name="android:textColorPrimary">@color/light_text</item>
+        <item name="android:textColorSecondary">@color/razer_gray</item>
+        <item name="android:statusBarColor">@color/light_background</item>
+        <item name="android:navigationBarColor">@color/light_background</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:buttonStyle">@style/RazerButton</item>
+    </style>
+
+    <style name="RazerButton" parent="android:Widget.DeviceDefault.Button">
+        <item name="android:textColor">@color/oled_black</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+</resources>

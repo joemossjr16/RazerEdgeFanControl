@@ -10,6 +10,15 @@
         android:padding="24dp">
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@color/razer_green"
+            android:text="@string/app_name" />
+
+        <TextView
             android:id="@+id/root_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -25,11 +34,43 @@
             android:text="" />
 
         <Button
+            android:id="@+id/grant_root_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Grant Root Permission"
+            android:visibility="gone" />
+
+        <Button
             android:id="@+id/grant_shizuku_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Grant Shizuku Permission"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/update_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="14sp"
+            android:text=""
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/check_update_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Check for Updates" />
+
+        <Button
+            android:id="@+id/download_update_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Download and Install Update"
             android:visibility="gone" />
 
         <Button
@@ -44,13 +85,14 @@
             android:layout_height="1dp"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="16dp"
-            android:background="#33000000" />
+            android:background="@color/divider" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:textStyle="bold"
+            android:textColor="@color/razer_green"
             android:text="Manual Fan Speed" />
 
         <SeekBar
@@ -122,58 +164,76 @@
             android:layout_height="1dp"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="16dp"
-            android:background="#33000000" />
+            android:background="@color/divider" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:textStyle="bold"
+            android:textColor="@color/razer_green"
             android:text="Thermal Profile" />
 
+        <LinearLayout
+            android:id="@+id/thermal_profile_section"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textSize="12sp"
+                android:text="Performance loosens the skin-temp throttle curve (kicks in ~15C later) and stops thermal-engine from overriding your manual fan speed, via a proper module overlay - never writes /vendor live. Requires a reboot to take effect. Real hardware protection is unchanged either way." />
+
+            <TextView
+                android:id="@+id/thermal_profile_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Thermal profile: checking..." />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <Button
+                    android:id="@+id/thermal_stock_button"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Stock" />
+
+                <Button
+                    android:id="@+id/thermal_performance_button"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Performance" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/reboot_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Reboot Now to Apply"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
         <TextView
+            android:id="@+id/thermal_profile_unavailable"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:textSize="12sp"
-            android:text="Performance loosens the skin-temp throttle curve (kicks in ~15C later) via a proper module overlay - never writes /vendor live. Requires a reboot to take effect. Real hardware protection is unchanged either way." />
-
-        <TextView
-            android:id="@+id/thermal_profile_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Thermal profile: checking..." />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:orientation="horizontal"
-            android:weightSum="2">
-
-            <Button
-                android:id="@+id/thermal_stock_button"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="Stock" />
-
-            <Button
-                android:id="@+id/thermal_performance_button"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="Performance" />
-
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/reboot_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Reboot Now to Apply"
+            android:text="Not available in this build: switching profiles installs a module, which needs a root manager (Magisk/APatch) to mount it. Install the rooted build for this feature."
             android:visibility="gone" />
 
         <View
@@ -181,7 +241,7 @@
             android:layout_height="1dp"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="12dp"
-            android:background="#33000000" />
+            android:background="@color/divider" />
 
         <TextView
             android:id="@+id/log_view"

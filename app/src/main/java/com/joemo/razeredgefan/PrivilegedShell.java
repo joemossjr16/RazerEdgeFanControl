@@ -18,17 +18,24 @@ final class PrivilegedShell {
         if (ShizukuBackend.isShizukuRunning()) {
             return ShizukuBackend.hasPermission() ? Backend.SHIZUKU : Backend.SHIZUKU_NEEDS_PERMISSION;
         }
-        if (RootShell.isRootAvailable()) {
+        if (BuildConfig.ALLOW_SU_FALLBACK && RootShell.isRootAvailable()) {
             return Backend.SU;
         }
         return Backend.NONE;
     }
 
-    /** Off the main thread only. */
+    /**
+     * Off the main thread only. The Shizuku build never falls back to {@code su} - on a
+     * genuinely non-root device there's no binary to find, and probing for one is pointless
+     * work (and would misrepresent this as a rooted build if some other app's su shim answered).
+     */
     static RootShell.Result run(String command) {
         if (ShizukuBackend.isShizukuRunning() && ShizukuBackend.hasPermission()) {
             return ShizukuBackend.run(command);
         }
-        return RootShell.run(command);
+        if (BuildConfig.ALLOW_SU_FALLBACK) {
+            return RootShell.run(command);
+        }
+        return new RootShell.Result(false, "Shizuku unavailable (not running or permission not granted).");
     }
 }

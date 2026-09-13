@@ -10,6 +10,15 @@
         android:padding="16dp">
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/razer_green"
+            android:text="@string/discover_title" />
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Confirmed on-device: the fan is a MAX31760 at i2c bus 0, addr 0x50, register 0x50 (PWMR), already in direct-control mode. Only change this if a different unit reports differently."
@@ -58,7 +67,7 @@
             android:layout_height="1dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="12dp"
-            android:background="#33000000" />
+            android:background="@color/divider" />
 
         <Button
             android:id="@+id/refresh_button"

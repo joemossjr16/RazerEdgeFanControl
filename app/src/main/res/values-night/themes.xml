@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme" parent="android:Theme.DeviceDefault.NoActionBar">
+        <item name="android:windowBackground">@color/oled_black</item>
+        <item name="android:colorAccent">@color/razer_green</item>
+        <item name="android:colorButtonNormal">@color/razer_green</item>
+        <item name="android:textColorPrimary">@color/razer_white</item>
+        <item name="android:textColorSecondary">@color/razer_green</item>
+        <item name="android:statusBarColor">@color/oled_black</item>
+        <item name="android:navigationBarColor">@color/oled_black</item>
+        <item name="android:buttonStyle">@style/RazerButton</item>
+    </style>
+</resources>
